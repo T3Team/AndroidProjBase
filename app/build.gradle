@@ -1,0 +1,89 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion parent.ext.compileSdkVersion
+    buildToolsVersion parent.ext.buildToolsVersion
+    defaultConfig {
+        applicationId "t3t.baseproj"
+        minSdkVersion parent.ext.minSdkVersion
+        targetSdkVersion parent.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+
+    }
+    //签名
+    signingConfigs {
+        debug {
+
+        }
+        release {
+//            storeFile file('../fyagent.jks')
+//            storePassword properties.getProperty("RELEASE_STORE_PASSWORD")
+//            keyAlias 'fyagent'
+//            keyPassword properties.getProperty("RELEASE_KEY_PASSWORD")
+        }
+    }
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "IS_DEBUG", "true"
+            versionNameSuffix "-debug"
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
+        }
+        release {
+            buildConfigField "boolean", "IS_DEBUG", "false"
+            minifyEnabled false
+            zipAlignEnabled true
+            //移除无用的resource文件
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+    configurations.all {
+        resolutionStrategy {
+            force "com.android.support:recyclerview-v7:$supportVersion"
+            force "com.android.support:appcompat-v7:$supportVersion"
+            force "com.android.support:design:$supportVersion"
+            force "com.android.support:support-vector-drawable:$supportVersion"
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+
+    dexOptions {
+        dexInProcess true
+        preDexLibraries true
+        javaMaxHeapSize "4g"//越大越好
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api project(':basebusinesslib')
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api 'com.jakewharton:butterknife:8.4.0'
+
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife_compiler_version"
+    api "com.alibaba:arouter-api:$arouter_api_version"
+    annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler_version"
+
+    api project(':basebusinesslib')
+
+    api project(':netrequestdemo')
+}

@@ -1,0 +1,33 @@
+### 指南请在编写该项目前阅读。
+#### 本文将会介绍项目结构，并引导你去了解熟悉涉及的第三方框架，及如何使用项目中的自定义部分等等。
+---
+#统一
+#####为了代码维护跟踪方便等，以下请务必遵守
+* 项目使用组件化的方式开发。
+
+* 为了以后多app重用，工具类utils、自定义组件放入baseprojlib项目中，业务项目中不存放此类代码。
+
+* `使用git rebase更新提交代码` [使得日志及代码跟踪更加清晰](http://stackoverflow.com/questions/18930527/difference-between-git-pull-and-git-pull-rebase)
+
+---
+
+#项目结构说明
+* AndroidProjBase:项目目录。
+
+* app：android app的入口。
+
+* baseprojlib：自定义工具包,适用各个app的项目基础组件库和工具库。
+
+* basebusinesslib：与公司业务相关的基础组件库和工具库。
+
+---
+
+# 需要理解项目第三方组件
+* UI框架使用的是qq开源的UI框架 [QMUI_Android](https://github.com/QMUI/QMUI_Android).
+
+* 网络请求框架[retrofit](http://square.github.io/retrofit/).
+
+* 基于事件异步订阅框架 [RxAndroid](http://square.github.io/retrofit/).
+
+* Android系统的View注入框架 [Butterknife](https://github.com/JakeWharton/butterknife).
+
