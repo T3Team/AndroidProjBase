@@ -31,3 +31,5 @@
 
 * Android系统的View注入框架 [Butterknife](https://github.com/JakeWharton/butterknife).
 
+* 组件式开发开发框架 [ARouter](https://github.com/alibaba/ARouter).
+
