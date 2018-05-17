@@ -1,4 +1,4 @@
-package t3t.baseproj.utils;
+package base.t3t.companybusinesslib.utils;
 
 import base.t3t.companybusinesslib.http.HttpClient;
 
@@ -8,6 +8,7 @@ import base.t3t.companybusinesslib.http.HttpClient;
 public class HttpUrlUtil {
     private static HttpUrlUtil httpUrlUtils;
     private String DemoURL = "http://xx.xxx";
+    private String DetTestURL = "http://app.net";
 
     private HttpUrlUtil() {
 
@@ -27,5 +28,9 @@ public class HttpUrlUtil {
 
     public String getDemoUrl() {
         return DemoURL;
+    }
+
+    public String getNetTestUrl() {
+        return DetTestURL;
     }
 }

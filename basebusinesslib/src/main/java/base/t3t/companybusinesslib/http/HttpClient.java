@@ -5,6 +5,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import base.t3t.baseprojlib.utils.DevUtil;
 import okhttp3.Authenticator;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -12,13 +13,13 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okhttp3.Route;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class HttpClient {
     public ProgressResponseBody.ProgressListener progressListener;
     private Retrofit client;
-    private Boolean debug;
 
     /**
      * base url 建议统一以/结尾
@@ -26,10 +27,6 @@ public abstract class HttpClient {
      * @return
      */
     protected abstract String setBaseUrl();
-
-    public void setIsDebug(boolean debug) {
-        this.debug = debug;
-    }
 
     public Retrofit getHttpClient() {
         return getHttpClient_(null);
@@ -44,11 +41,6 @@ public abstract class HttpClient {
     }
 
     private Retrofit getHttpClient_(final ProgressResponseBody.ProgressListener tempProgressListener) {
-
-        if (debug == null) {
-            throw new NetErrorException("尚未调用 initClient 方法，确认当前是否是Debug环境，建议在App Application中调用");
-        }
-
         progressListener = tempProgressListener;
         if (client == null) {
             Authenticator mAuthenticator = new Authenticator() {
@@ -73,6 +65,14 @@ public abstract class HttpClient {
                             .build();
                 }
             };
+
+            HttpLoggingInterceptor logIterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+                @Override
+                public void log(String message) {
+                    DevUtil.e("Http", message);
+                }
+            });
+            logIterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             ApiStatusCodeInterceptor apiStatusCodeInterceptor = new ApiStatusCodeInterceptor();
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .retryOnConnectionFailure(true)
@@ -82,6 +82,7 @@ public abstract class HttpClient {
                     .addNetworkInterceptor(mRequestInterceptor)
                     .addNetworkInterceptor(new HeaderInterceptor())
                     .addInterceptor(apiStatusCodeInterceptor)
+                    .addInterceptor(logIterceptor)
                     .authenticator(mAuthenticator)
                     .build();
 

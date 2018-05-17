@@ -5,5 +5,4 @@ package base.t3t.companybusinesslib.constant;
  */
 public class NetDemoArouterParams {
     public static final String jumpToNetDemoMain = "/netdemo/mainact";
-    public static final String jumpToNetDemoMainFragment = "/netdemo/mainact/fragment";
 }

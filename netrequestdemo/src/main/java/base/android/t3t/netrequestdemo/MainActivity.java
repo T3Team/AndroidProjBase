@@ -22,9 +22,9 @@ public class MainActivity extends BaseFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        QMUIStatusBarHelper.translucent(this); // 沉浸式状态栏
         if (savedInstanceState == null) {
-            BaseFragment fragment = (NetFragment) ArouterUtils.getInstance().getFragment(NetDemoArouterParams.jumpToNetDemoMainFragment).navigation();
+           // BaseFragment fragment = (NetFragment) ArouterUtils.getInstance().getFragment(NetDemoArouterParams.jumpToNetDemoMainFragment).navigation();
+            BaseFragment fragment = new NetFragment();
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(getContextViewId(), fragment, fragment.getClass().getSimpleName())

@@ -1,7 +1,7 @@
 package t3t.baseproj.net;
 
 import base.t3t.companybusinesslib.http.HttpClient;
-import t3t.baseproj.utils.HttpUrlUtil;
+import base.t3t.companybusinesslib.utils.HttpUrlUtil;
 
 /**
  * Created by dale on 2018/5/9.
