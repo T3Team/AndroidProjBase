@@ -47,7 +47,6 @@ public class QMUIDEMOFragment extends BaseFragment {
                 } else {
                     AssetManager assets = getActivity().getAssets();
                     try {
-                        //获取assets资源目录下的himarket.mp3,实际上是himarket.apk,为了避免被编译压缩，修改后缀名。
                         InputStream stream = assets.open("qumi.mp3");
                         if (stream == null) {
                             return;
