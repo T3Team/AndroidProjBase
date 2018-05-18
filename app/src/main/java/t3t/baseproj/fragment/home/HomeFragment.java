@@ -1,5 +1,6 @@
 package t3t.baseproj.fragment.home;
 
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 
@@ -15,10 +17,14 @@ import com.qmuiteam.qmui.widget.QMUITabSegment;
 import java.util.HashMap;
 
 import base.t3t.companybusinesslib.base.BaseFragment;
+import base.t3t.companybusinesslib.base.BaseFragmentActivity;
+import base.t3t.companybusinesslib.constant.AppArouterParams;
+import base.t3t.companybusinesslib.constant.NetDemoArouterParams;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import t3t.baseproj.R;
 
+@Route(path = AppArouterParams.fragmentHome)
 public class HomeFragment extends BaseFragment {
     @BindView(R.id.pager)
     ViewPager mViewPager;
@@ -124,15 +130,30 @@ public class HomeFragment extends BaseFragment {
 
     private void initPagers() {
 
+        HomeController.HomeControlListener listener = new HomeController.HomeControlListener() {
+            @Override
+            public void startFragment(BaseFragment fragment) {
+                HomeFragment.this.startFragment(fragment);
+            }
+
+            @Override
+            public void startAct(BaseFragmentActivity activity) {
+                startActivity(new Intent(getContext(), activity.getClass()));
+            }
+        };
+
         mPages = new HashMap<>();
 
         HomeController homeComponentsController = new HomeComponentsController(getActivity());
+        homeComponentsController.setHomeControlListener(listener);
         mPages.put(Pager.COMPONENT, homeComponentsController);
 
         HomeController homeUtilController = new HomeUtilController(getActivity());
+        homeUtilController.setHomeControlListener(listener);
         mPages.put(Pager.UTIL, homeUtilController);
 
         HomeController homeLabController = new HomeLabController(getActivity());
+        homeLabController.setHomeControlListener(listener);
         mPages.put(Pager.LAB, homeLabController);
 
         mViewPager.setAdapter(mPagerAdapter);

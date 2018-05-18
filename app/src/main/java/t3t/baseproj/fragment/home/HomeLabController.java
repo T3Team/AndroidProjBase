@@ -2,15 +2,12 @@ package t3t.baseproj.fragment.home;
 
 import android.content.Context;
 
-
 import java.util.ArrayList;
+import java.util.List;
 
-import t3t.baseproj.model.QDItemDescription;
-
-/**
- * @author cginechen
- * @date 2016-10-20
- */
+import base.android.t3t.netrequestdemo.NetFragment;
+import t3t.baseproj.adapter.ItemAdapter;
+import t3t.baseproj.model.ItemDescription;
 
 public class HomeLabController extends HomeController {
 
@@ -21,6 +18,14 @@ public class HomeLabController extends HomeController {
     @Override
     protected String getTitle() {
         return "Lab";
+    }
+
+    @Override
+    ItemAdapter getItemAdapter() {
+
+        List<ItemDescription> data = new ArrayList<>();
+
+        return new ItemAdapter(getContext(),data);
     }
 
 }

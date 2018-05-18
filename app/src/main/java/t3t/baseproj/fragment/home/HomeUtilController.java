@@ -3,13 +3,14 @@ package t3t.baseproj.fragment.home;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import t3t.baseproj.model.QDItemDescription;
-
-
-/** 主界面，关于 QMUI Util 部分的展示。
- * Created by Kayo on 2016/11/21.
- */
+import base.android.t3t.netrequestdemo.MainActivity;
+import base.android.t3t.netrequestdemo.utils.ArouterUtils;
+import base.t3t.companybusinesslib.base.BaseFragment;
+import base.t3t.companybusinesslib.constant.NetDemoArouterParams;
+import t3t.baseproj.adapter.ItemAdapter;
+import t3t.baseproj.model.ItemDescription;
 
 public class HomeUtilController extends HomeController {
 
@@ -20,6 +21,15 @@ public class HomeUtilController extends HomeController {
     @Override
     protected String getTitle() {
         return "Helper";
+    }
+
+    @Override
+    ItemAdapter getItemAdapter() {
+        List<ItemDescription> data = new ArrayList<>();
+        BaseFragment fragment = (BaseFragment) ArouterUtils.getInstance().getFragment(NetDemoArouterParams.jumpToNetDemoMainragment).navigation();
+        ItemDescription itemDescription = new ItemDescription(fragment, "网络请求Demo");
+        data.add(itemDescription);
+        return new ItemAdapter(getContext(), data);
     }
 
 }

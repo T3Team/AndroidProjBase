@@ -8,18 +8,12 @@
     android:paddingLeft="8dp"
     android:paddingRight="8dp">
 
-    <ImageView
-        android:id="@+id/item_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="Item Icon" />
-
     <TextView
         android:id="@+id/item_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal|top"
         android:lines="2"
-        android:textColor="?attr/qmui_config_color_gray_6"
-        android:textSize="11sp" />
+        android:textColor="?attr/qmui_config_color_blue"
+        android:textSize="14sp" />
 </LinearLayout>

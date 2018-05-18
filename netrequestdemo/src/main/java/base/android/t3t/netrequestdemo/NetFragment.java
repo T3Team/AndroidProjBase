@@ -7,13 +7,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
 import base.android.t3t.netrequestdemo.http.MNetService;
 import base.t3t.companybusinesslib.base.BaseFragment;
+import base.t3t.companybusinesslib.constant.NetDemoArouterParams;
 import base.t3t.companybusinesslib.http.BaseObserver;
 import io.reactivex.disposables.Disposable;
 
+@Route(path = NetDemoArouterParams.jumpToNetDemoMainragment)
 public class NetFragment extends BaseFragment {
 
     private Button mSentRequest;
@@ -61,6 +64,6 @@ public class NetFragment extends BaseFragment {
 
     @Override
     protected boolean canDragBack() {
-        return false;
+        return true;
     }
 }

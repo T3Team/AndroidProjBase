@@ -54,7 +54,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project('::basebusinesslib')
-    api "com.alibaba:arouter-api:$arouter_api_version"
     annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler_version"
 
 }
