@@ -1,11 +1,15 @@
 package t3t.baseproj.fragment.home;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.res.AssetManager;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.qmuiteam.qmui.widget.QMUITopBar;
@@ -20,18 +24,25 @@ import base.t3t.companybusinesslib.constant.AppArouterParams;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import t3t.baseproj.R;
-
-import static base.t3t.baseprojlib.utils.FileUtil.writeStreamToFile;
+import t3t.baseproj.demo.User;
+import t3t.baseproj.demo.viewmodel.TestViewModel;
+import t3t.baseproj.lifecycle.TestLifecycleObserver;
 
 @Route(path = AppArouterParams.fragmentQMUIDEMO)
 public class QMUIDEMOFragment extends BaseFragment {
-
+    TestLifecycleObserver mTestLifecycleObserver;
     @BindView(R.id.openOrInstall)
     Button mOpenOrInstallApp;
     @BindView(R.id.topbar)
     QMUITopBar mTopBar;
     private boolean isInstall;
     private String packName = "com.qmuiteam.qmuidemo";
+    //测试ViewModel
+    @BindView(R.id.tv_test_name)
+    TextView mTvTest;
+    @BindView(R.id.btn_modUserName)
+    Button mBtnModUser;
+    private int mClickTimes = 0;
 
     @Override
     protected View onCreateView() {
@@ -79,7 +90,25 @@ public class QMUIDEMOFragment extends BaseFragment {
                     }
                 });
         mTopBar.setTitle("QMUI Demo");
-
+        mTestLifecycleObserver = new TestLifecycleObserver();
+        getLifecycle().addObserver(mTestLifecycleObserver);
+        final TestViewModel testViewModel = ViewModelProviders.of(getActivity()).get(TestViewModel.class);
+        testViewModel.getUser().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(@Nullable User user) {
+                mTvTest.setText(String.format("id is %1$s,name is %2$s", user.getId(), user.getUserName()));
+            }
+        });
+        mBtnModUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClickTimes++;
+                User user = new User();
+                user.setId(String.valueOf(mClickTimes));
+                user.setUserName("Change");
+                testViewModel.setUser(user);
+            }
+        });
         return layout;
     }
 

@@ -30,4 +30,11 @@ dependencies {
     api 'io.reactivex.rxjava2:rxandroid:2.0.1'
     api 'org.greenrobot:eventbus:3.1.1'
     api "com.alibaba:arouter-api:$arouter_api_version"
+    // ViewModel and LiveData
+    api "android.arch.lifecycle:extensions:$lifecycle_version"
+    // alternatively - Lifecycles only (no ViewModel or LiveData).
+    //     Support library depends on this lightweight import
+    api "android.arch.lifecycle:runtime:$lifecycle_version"
+
+    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
 }
