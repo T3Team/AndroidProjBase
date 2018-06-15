@@ -3,7 +3,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
-
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
 android {
     compileSdkVersion parent.ext.compileSdkVersion
     buildToolsVersion parent.ext.buildToolsVersion
@@ -13,6 +15,7 @@ android {
         targetSdkVersion parent.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        flavorDimensions "versionCode"
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -70,6 +73,29 @@ android {
         dexInProcess true
         preDexLibraries true
         javaMaxHeapSize "4g"//越大越好
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                //这里修改apk文件名
+                if ('release'.endsWith(variant.buildType.name)) {
+                    outputFileName = "Release_v${defaultConfig.versionName}_${releaseTime()}.apk"
+                } else if ('debug'.endsWith(variant.buildType.name)) {
+                    outputFileName = "Debug_v${defaultConfig.versionName}_${releaseTime()}.apk"
+                }
+            }
+        }
+    }
+
+    productFlavors {//渠道包
+        dev {} //不要删除
+        //_360 {}       //无法使用纯数字,加个前缀
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [GRADLE_CHANNEL_VALUE: name]
     }
 }
 

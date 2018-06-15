@@ -13,13 +13,11 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 
-
 import java.util.HashMap;
 
 import base.t3t.companybusinesslib.base.BaseFragment;
 import base.t3t.companybusinesslib.base.BaseFragmentActivity;
 import base.t3t.companybusinesslib.constant.AppArouterParams;
-import base.t3t.companybusinesslib.constant.NetDemoArouterParams;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import t3t.baseproj.R;
