@@ -13,7 +13,7 @@ import io.reactivex.Observer;
 import retrofit2.HttpException;
 
 public abstract class BaseObserver<T> implements Observer<T> {
-    public final int RESPONSE_CODE_FAILED = -1;
+    private int RESPONSE_CODE_FAILED = -1;
     private DialogLoading dialogLoading;
     //是否需要显示Http 请求的进度，默认的是需要，但是Service 和 预取数据不需要
     private boolean showProgress = true;
@@ -26,7 +26,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
         return dialogLoading;
     }
 
-    public void showLoadingDialog() {
+    private void showLoadingDialog() {
         getDialogLoading();
         if (null != dialogLoading) {
             try {
@@ -37,7 +37,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
         }
     }
 
-    public void closeLoadingDialog() {
+    private void closeLoadingDialog() {
         if (showProgress)
             try {
                 if (dialogLoading != null) {
@@ -62,7 +62,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
      */
     public abstract void onFailure(int code, final String message);
 
-    public BaseObserver(Context cxt, boolean showProgress) {
+    private BaseObserver(Context cxt, boolean showProgress) {
         baseObserver_(cxt, showProgress);
     }
 
@@ -96,7 +96,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
     private String errorMessage;
 
     @Override
-    public final void onError(Throwable t) {
+        public final void onError(Throwable t) {
         closeLoadingDialog();
         code = 0;
         errorMessage = "未知错误";
