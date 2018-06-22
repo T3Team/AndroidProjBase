@@ -23,7 +23,7 @@ public class MainActivity extends BaseFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
-           // BaseFragment fragment = (NetFragment) ArouterUtils.getInstance().getFragment(NetDemoArouterParams.jumpToNetDemoMainFragment).navigation();
+           // BaseFragment fragment = (NetFragment) ArouterUtils.getInstance().getFragment(NetDemoArouterParams.jumpToNetDemoMainragment).navigation();
             BaseFragment fragment = new NetFragment();
             getSupportFragmentManager()
                     .beginTransaction()

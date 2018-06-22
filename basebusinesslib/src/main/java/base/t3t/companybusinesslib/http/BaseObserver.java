@@ -1,51 +1,16 @@
 package base.t3t.companybusinesslib.http;
 
-import android.content.Context;
-
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.net.UnknownServiceException;
 
-import base.t3t.baseprojlib.widget.DialogLoading;
 import io.reactivex.Observer;
 import retrofit2.HttpException;
 
 public abstract class BaseObserver<T> implements Observer<T> {
     private int RESPONSE_CODE_FAILED = -1;
-    private DialogLoading dialogLoading;
-    //是否需要显示Http 请求的进度，默认的是需要，但是Service 和 预取数据不需要
-    private boolean showProgress = true;
-    private Context cxt;
-
-    private DialogLoading getDialogLoading() {
-        if (dialogLoading == null) {
-            dialogLoading = DialogLoading.createDialog(cxt);
-        }
-        return dialogLoading;
-    }
-
-    private void showLoadingDialog() {
-        getDialogLoading();
-        if (null != dialogLoading) {
-            try {
-                dialogLoading.show();
-            } catch (Exception ex) {
-
-            }
-        }
-    }
-
-    private void closeLoadingDialog() {
-        if (showProgress)
-            try {
-                if (dialogLoading != null) {
-                    dialogLoading.dismiss();
-                }
-            } catch (Exception ex) {
-            }
-    }
 
     /**
      * 根据具体的Api 业务逻辑去重写 onSuccess 方法！
@@ -62,33 +27,9 @@ public abstract class BaseObserver<T> implements Observer<T> {
      */
     public abstract void onFailure(int code, final String message);
 
-    private BaseObserver(Context cxt, boolean showProgress) {
-        baseObserver_(cxt, showProgress);
-    }
-
-    public BaseObserver(Context context) {
-        baseObserver_(cxt, true);
-    }
-
-    private void baseObserver_(Context cxt, boolean showProgress) {
-        this.cxt = cxt;
-        this.showProgress = showProgress;
-        initLoadingDialog();
-    }
-
-    private void initLoadingDialog() {
-        if (showProgress) {
-            try {
-                showLoadingDialog();
-            } catch (Exception ex) {
-            }
-        }
-    }
-
 
     @Override
     public final void onNext(T response) {
-        closeLoadingDialog();
         onSuccess(response);
     }
 
@@ -96,8 +37,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
     private String errorMessage;
 
     @Override
-        public final void onError(Throwable t) {
-        closeLoadingDialog();
+    public final void onError(Throwable t) {
         code = 0;
         errorMessage = "未知错误";
         if (t instanceof NetErrorException) {
@@ -131,13 +71,4 @@ public abstract class BaseObserver<T> implements Observer<T> {
         }
         onFailure(code, errorMessage);
     }
-
-    /**
-     * 简单的把Dialog 处理掉
-     */
-    @Override
-    public final void onComplete() {
-        closeLoadingDialog();
-    }
-
 }
