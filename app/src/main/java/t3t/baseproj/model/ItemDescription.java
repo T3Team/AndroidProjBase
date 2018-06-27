@@ -4,7 +4,7 @@ import base.t3t.companybusinesslib.base.BaseFragment;
 import base.t3t.companybusinesslib.base.BaseFragmentActivity;
 
 public class ItemDescription {
-    public BaseFragment getmKitDemoClass() {
+    public Class<? extends BaseFragment> getmKitDemoClass() {
         return mKitDemoClass;
     }
 
@@ -16,11 +16,11 @@ public class ItemDescription {
         return mKitName;
     }
 
-    private BaseFragment mKitDemoClass;
+    private Class<? extends BaseFragment> mKitDemoClass;
     private BaseFragmentActivity mKitDemoActClass;
     private String mKitName;
 
-    public ItemDescription(BaseFragment kitDemoClass, String kitName) {
+    public ItemDescription(Class<? extends BaseFragment> kitDemoClass, String kitName) {
         mKitDemoClass = kitDemoClass;
         mKitName = kitName;
     }

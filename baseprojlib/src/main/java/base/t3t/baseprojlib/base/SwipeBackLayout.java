@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.qmuiteam.qmui.widget.QMUIWindowInsetLayout;
 
@@ -93,8 +94,6 @@ public class SwipeBackLayout extends QMUIWindowInsetLayout {
      */
     private float mScrollThreshold = DEFAULT_SCROLL_THRESHOLD;
 
-    private boolean mEnable = true;
-
     private View mContentView;
 
     private ViewDragHelper mDragHelper;
@@ -128,6 +127,8 @@ public class SwipeBackLayout extends QMUIWindowInsetLayout {
      * Edge being dragged
      */
     private int mTrackingEdge;
+
+    private Callback mCallback;
 
     public SwipeBackLayout(Context context) {
         this(context, null);
@@ -175,8 +176,12 @@ public class SwipeBackLayout extends QMUIWindowInsetLayout {
         return mContentView;
     }
 
-    public void setEnableGesture(boolean enable) {
-        mEnable = enable;
+    public void setCallback(Callback callback) {
+        mCallback = callback;
+    }
+
+    private boolean canSwipeBack() {
+        return mCallback == null || mCallback.canSwipeBack();
     }
 
     /**
@@ -260,7 +265,7 @@ public class SwipeBackLayout extends QMUIWindowInsetLayout {
         /**
          * Invoke when scrolling
          *
-         * @param edgeFlag flag to describe edge
+         * @param edgeFlag      flag to describe edge
          * @param scrollPercent scroll percent of this view
          */
         void onScroll(int edgeFlag, float scrollPercent);
@@ -352,7 +357,7 @@ public class SwipeBackLayout extends QMUIWindowInsetLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        if (!mEnable) {
+        if (!canSwipeBack()) {
             return false;
         }
         try {
@@ -364,7 +369,7 @@ public class SwipeBackLayout extends QMUIWindowInsetLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (!mEnable) {
+        if (!canSwipeBack()) {
             return false;
         }
         mDragHelper.processTouchEvent(event);
@@ -512,9 +517,9 @@ public class SwipeBackLayout extends QMUIWindowInsetLayout {
             if (mScrollPercent < mScrollThreshold && !mIsScrollOverValid) {
                 mIsScrollOverValid = true;
             }
-            if (mListeners != null && !mListeners.isEmpty()){
-                if(mDragHelper.getViewDragState() == STATE_DRAGGING &&
-                        mScrollPercent >= mScrollThreshold && mIsScrollOverValid){
+            if (mListeners != null && !mListeners.isEmpty()) {
+                if (mDragHelper.getViewDragState() == STATE_DRAGGING &&
+                        mScrollPercent >= mScrollThreshold && mIsScrollOverValid) {
                     mIsScrollOverValid = false;
                     for (SwipeListener listener : mListeners) {
                         listener.onScrollOverThreshold();
@@ -578,13 +583,18 @@ public class SwipeBackLayout extends QMUIWindowInsetLayout {
         }
     }
 
-    public static SwipeBackLayout wrap(View child, int edgeFlag) {
+    public static SwipeBackLayout wrap(View child, int edgeFlag, Callback callback) {
         SwipeBackLayout wrapper = new SwipeBackLayout(child.getContext());
         wrapper.setEdgeTrackingEnabled(edgeFlag);
-        LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         child.setLayoutParams(lp);
         wrapper.addView(child);
         wrapper.setContentView(child);
+        wrapper.setCallback(callback);
         return wrapper;
+    }
+
+    public interface Callback {
+        boolean canSwipeBack();
     }
 }

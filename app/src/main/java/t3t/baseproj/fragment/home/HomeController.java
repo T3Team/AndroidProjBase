@@ -83,13 +83,12 @@ public abstract class HomeController extends FrameLayout {
                 ItemDescription item = mItemAdapter.getItem(pos);
                 try {
                     if (item.getmKitDemoClass() != null) {
-                        BaseFragment fragment = item.getmKitDemoClass();
-                        startFragment(fragment);
+                        Class<? extends BaseFragment> fragment = item.getmKitDemoClass();
+                        startFragment(fragment.newInstance());
                     } else {
                         BaseFragmentActivity activity = item.getmKitDemoActClass();
                         startActivity(activity);
                     }
-
 
                 } catch (Exception e) {
                     e.printStackTrace();

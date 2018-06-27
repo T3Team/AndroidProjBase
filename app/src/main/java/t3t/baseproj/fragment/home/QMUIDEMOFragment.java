@@ -4,9 +4,12 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.res.AssetManager;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +21,7 @@ import java.io.File;
 import java.io.InputStream;
 
 import base.t3t.baseprojlib.utils.AppUtils;
+import base.t3t.baseprojlib.utils.DevUtil;
 import base.t3t.baseprojlib.utils.FileUtil;
 import base.t3t.companybusinesslib.base.BaseFragment;
 import base.t3t.companybusinesslib.constant.AppArouterParams;
@@ -45,8 +49,13 @@ public class QMUIDEMOFragment extends BaseFragment {
     private int mClickTimes = 0;
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
     protected View onCreateView() {
-        LinearLayout layout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_qmui_demo, null);
+        View layout = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_qmui_demo, null);
         ButterKnife.bind(this, layout);
 
         mOpenOrInstallApp.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +101,7 @@ public class QMUIDEMOFragment extends BaseFragment {
         mTopBar.setTitle("QMUI Demo");
         mTestLifecycleObserver = new TestLifecycleObserver();
         getLifecycle().addObserver(mTestLifecycleObserver);
-        final TestViewModel testViewModel = ViewModelProviders.of(getActivity()).get(TestViewModel.class);
+        final TestViewModel testViewModel = ViewModelProviders.of(QMUIDEMOFragment.this).get(TestViewModel.class);
         testViewModel.getUser().observe(this, new Observer<User>() {
             @Override
             public void onChanged(@Nullable User user) {

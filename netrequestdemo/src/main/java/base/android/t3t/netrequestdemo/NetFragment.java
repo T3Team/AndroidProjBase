@@ -32,19 +32,7 @@ public class NetFragment extends BaseFragment {
     private NetDemoViewModel netDemoViewModel;
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        DevUtil.v("dale", "onActivityCreated--");
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
     protected View onCreateView() {
-        DevUtil.v("dale", "onCreateView--");
         LinearLayout layout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_net_demo, null);
         mSentRequest = layout.findViewById(R.id.sentRequest);
         mTopBar = layout.findViewById(R.id.topbar);
@@ -70,7 +58,6 @@ public class NetFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DevUtil.v("dale", "onCreate--");
         netDemoViewModel = ViewModelProviders.of(this).get(NetDemoViewModel.class);
         gson = new Gson();
         netDemoViewModel.getNetDemoData().observe(this, new Observer<NetDemoBean>() {
@@ -105,9 +92,4 @@ public class NetFragment extends BaseFragment {
         return true;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        DevUtil.v("dale", "onDestroy--");
-    }
 }

@@ -67,7 +67,6 @@ public class NetDemoViewModel extends ViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
-        DevUtil.v("dale", "onCleared()...");
-        mNetDemoData = null;
+        //mNetDemoData = null;
     }
 }

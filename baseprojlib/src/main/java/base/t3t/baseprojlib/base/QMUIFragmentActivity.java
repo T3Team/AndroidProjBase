@@ -16,10 +16,8 @@ import java.lang.reflect.Field;
 
 import base.t3t.baseprojlib.callback.IUseEventBus;
 import base.t3t.baseprojlib.utils.event.BusFactory;
-import base.t3t.baseprojlib.utils.event.IBus;
 
 /**
- * arch: 0.1.0
  * the container activity for {@link QMUIFragment}.
  * Created by cgspine on 15/9/14.
  */
@@ -152,7 +150,7 @@ public abstract class QMUIFragmentActivity extends AppCompatActivity implements 
     }
 
     /**
-     * 退出当前的 Fragment。
+     * Exit the current Fragment。
      */
     public void popBackStack() {
         Log.i(TAG, "popBackStack: getSupportFragmentManager().getBackStackEntryCount() = " + getSupportFragmentManager().getBackStackEntryCount());
@@ -185,25 +183,26 @@ public abstract class QMUIFragmentActivity extends AppCompatActivity implements 
         }
     }
 
+
     /**
-     * <pre>
-     * 返回到clazz类型的Fragment，
-     * 如 Home --> List --> Detail，
-     * popBackStack(Home.class)之后，就是Home
+     * pop back to a clazz type fragment
+     * <p>
+     * Assuming there is a back stack: Home -> List -> Detail. Perform popBackStack(Home.class),
+     * Home is the current fragment
+     * <p>
+     * if the clazz type fragment doest not exist in back stack, this method is Equivalent
+     * to popBackStack()
      *
-     * 如果堆栈没有clazz或者就是当前的clazz（如上例的popBackStack(Detail.class)），就相当于popBackStack()
-     * </pre>
+     * @param clazz the type of fragment
      */
     public void popBackStack(Class<? extends QMUIFragment> clazz) {
         getSupportFragmentManager().popBackStack(clazz.getSimpleName(), 0);
     }
 
     /**
-     * <pre>
-     * 返回到非clazz类型的Fragment
+     * pop back to a non-clazz type Fragment
      *
-     * 如果上一个是目标clazz，则会继续pop，直到上一个不是clazz。
-     * </pre>
+     * @param clazz the type of fragment
      */
     public void popBackStackInclusive(Class<? extends QMUIFragment> clazz) {
         getSupportFragmentManager().popBackStack(clazz.getSimpleName(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
