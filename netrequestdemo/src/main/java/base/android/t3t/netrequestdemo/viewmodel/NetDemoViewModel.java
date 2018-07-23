@@ -1,15 +1,14 @@
 package base.android.t3t.netrequestdemo.viewmodel;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
 import base.android.t3t.netrequestdemo.entity.NetDemoBean;
 import base.android.t3t.netrequestdemo.http.MNetService;
-import base.t3t.baseprojlib.utils.DevUtil;
 import base.t3t.companybusinesslib.http.BaseObserver;
 import base.t3t.companybusinesslib.http.LoadState;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.subjects.PublishSubject;
 
 
 /**
@@ -21,7 +20,6 @@ public class NetDemoViewModel extends ViewModel {
 
     // 因为ViewModel独立于Activity和Fragment，所以不能引用任何View，或者任何引用了Context 的对象。
     // 如果ViewModel需要一个Application类型的Context，可以继承于AndroidViewModel类，构造方法中会有一个Application对象。
-    private MutableLiveData<NetDemoBean> mNetDemoData = new MutableLiveData<>();
 
     public MutableLiveData<LoadState> getLoadState() {
         return mLoadState;
@@ -31,9 +29,16 @@ public class NetDemoViewModel extends ViewModel {
 
     private LoadState mState = new LoadState();
 
-    public LiveData<NetDemoBean> getNetDemoData() {
+    public NetDemoViewModel() {
+        mNetDemoData = PublishSubject.create();
+    }
+
+    public PublishSubject<NetDemoBean> getmNetDemoData() {
         return mNetDemoData;
     }
+
+    private final PublishSubject<NetDemoBean> mNetDemoData;
+
 
     public void requestNetDemoData() {
 
@@ -52,7 +57,7 @@ public class NetDemoViewModel extends ViewModel {
 
             @Override
             public void onSuccess(NetDemoBean netDemoBean) {
-                mNetDemoData.setValue(netDemoBean);
+                mNetDemoData.onNext(netDemoBean);
             }
 
             @Override

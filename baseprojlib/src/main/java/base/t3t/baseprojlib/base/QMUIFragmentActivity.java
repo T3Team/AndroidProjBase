@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUIWindowInsetLayout;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.lang.reflect.Field;
 
@@ -21,7 +21,7 @@ import base.t3t.baseprojlib.utils.event.BusFactory;
  * the container activity for {@link QMUIFragment}.
  * Created by cgspine on 15/9/14.
  */
-public abstract class QMUIFragmentActivity extends AppCompatActivity implements IUseEventBus {
+public abstract class QMUIFragmentActivity extends RxAppCompatActivity implements IUseEventBus {
     private static final String TAG = "QMUIFragmentActivity";
     private QMUIWindowInsetLayout mFragmentContainer;
 

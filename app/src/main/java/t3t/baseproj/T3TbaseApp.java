@@ -2,6 +2,7 @@ package t3t.baseproj;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 
+import base.t3t.baseprojlib.image.loader.ImageLoader;
 import base.t3t.companybusinesslib.base.BaseApp;
 
 /**
@@ -19,7 +20,7 @@ public class T3TbaseApp extends BaseApp {
             ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
         }
         ARouter.init(this);
-
+        ImageLoader.init(getApplicationContext());
     }
 
 
@@ -28,6 +29,20 @@ public class T3TbaseApp extends BaseApp {
         super.onCreate();
         instance = this;
 
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+
+        ImageLoader.trimMemory(level);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+
+        ImageLoader.clearAllMemoryCaches();
     }
 
     public static T3TbaseApp getInstance() {

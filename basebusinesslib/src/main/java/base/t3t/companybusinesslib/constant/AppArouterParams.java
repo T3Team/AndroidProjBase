@@ -6,4 +6,5 @@ package base.t3t.companybusinesslib.constant;
 public class AppArouterParams {
     public static final String fragmentHome = "/app/fragmenthome";
     public static final String fragmentQMUIDEMO = "/app/qumuidemo";
+    public static final String fragmentImagerLoaderSimpleDemo = "/app/imageloader/SimpleDemo";
 }

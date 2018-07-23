@@ -20,6 +20,7 @@ import android.view.animation.AnimationUtils;
 
 import com.qmuiteam.qmui.QMUILog;
 import com.qmuiteam.qmui.util.QMUIViewHelper;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -35,7 +36,7 @@ import base.t3t.baseprojlib.R;
  * <p>
  * Created by cgspine on 15/9/14.
  */
-public abstract class QMUIFragment extends Fragment {
+public abstract class QMUIFragment extends RxFragment {
     private static final String SWIPE_BACK_VIEW = "swipe_back_view";
     private static final String TAG = QMUIFragment.class.getSimpleName();
 

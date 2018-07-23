@@ -7,6 +7,7 @@ import java.util.List;
 
 import base.android.t3t.netrequestdemo.NetFragment;
 import t3t.baseproj.adapter.ItemAdapter;
+import t3t.baseproj.demo.ImageLoader.fragment.SimpleLoaderDemoFragment;
 import t3t.baseproj.model.ItemDescription;
 
 public class HomeUtilController extends HomeController {
@@ -25,6 +26,8 @@ public class HomeUtilController extends HomeController {
         List<ItemDescription> data = new ArrayList<>();
         ItemDescription itemDescription = new ItemDescription(NetFragment.class, "网络请求Demo");
         data.add(itemDescription);
+        ItemDescription itemDescription2 = new ItemDescription(SimpleLoaderDemoFragment.class, "图片加载Demo");
+        data.add(itemDescription2);
         return new ItemAdapter(getContext(), data);
     }
 
