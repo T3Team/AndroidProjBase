@@ -30,21 +30,6 @@ public class T3TbaseApp extends BaseApp {
         instance = this;
 
     }
-
-    @Override
-    public void onTrimMemory(int level) {
-        super.onTrimMemory(level);
-
-        ImageLoader.trimMemory(level);
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-
-        ImageLoader.clearAllMemoryCaches();
-    }
-
     public static T3TbaseApp getInstance() {
         return instance;
     }

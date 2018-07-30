@@ -1,12 +1,18 @@
 apply plugin: 'com.android.library'
+
 android {
-    compileSdkVersion parent.ext.compileSdkVersion
-    buildToolsVersion parent.ext.buildToolsVersion
+    compileSdkVersion 27
+
 
 
     defaultConfig {
-        minSdkVersion parent.ext.minSdkVersion
-        targetSdkVersion parent.ext.targetSdkVersion
+        minSdkVersion 14
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -19,7 +25,7 @@ android {
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     api 'com.qmuiteam:qmui:1.1.5'
     api 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
     api 'com.squareup.okhttp3:logging-interceptor:3.9.0'
@@ -54,6 +60,6 @@ dependencies {
 
     api 'com.github.bumptech.glide:glide:4.7.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
-    implementation 'jp.wasabeef:glide-transformations:3.3.0'
-    implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
+    api 'jp.wasabeef:glide-transformations:3.3.0'
+    api 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
 }

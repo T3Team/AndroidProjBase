@@ -1,1 +1,1 @@
-include ':app', ':basebusinesslib', ':baseprojlib', ':netrequestdemo'
+include ':app', ':basebusinesslib', ':libcommon_lib', ':netrequestdemo', ':lib_opensource'
