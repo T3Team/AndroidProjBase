@@ -3,7 +3,6 @@ package base.t3t.companybusinesslib.http;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.IOException;
-import java.net.Proxy;
 import java.util.concurrent.TimeUnit;
 
 import base.t3t.baseprojlib.utils.DevUtil;
@@ -84,7 +83,6 @@ public abstract class HttpClient {
                     .addNetworkInterceptor(new HeaderInterceptor())
                     .addInterceptor(apiStatusCodeInterceptor)
                     .addInterceptor(logIterceptor)
-                    .proxy(Proxy.NO_PROXY)
                     .authenticator(mAuthenticator)
                     .build();
 
