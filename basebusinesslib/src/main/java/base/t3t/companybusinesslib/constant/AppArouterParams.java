@@ -7,4 +7,5 @@ public class AppArouterParams {
     public static final String fragmentHome = "/app/fragmenthome";
     public static final String fragmentQMUIDEMO = "/app/qumuidemo";
     public static final String fragmentImagerLoaderSimpleDemo = "/app/imageloader/SimpleDemo";
+    public static final String fragmentRealmDbDemo = "/app/fragmentRealmDbDemo";
 }

@@ -4,6 +4,8 @@ import com.alibaba.android.arouter.launcher.ARouter;
 
 import base.t3t.baseprojlib.image.loader.ImageLoader;
 import base.t3t.companybusinesslib.base.BaseApp;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * application
@@ -21,6 +23,11 @@ public class T3TbaseApp extends BaseApp {
         }
         ARouter.init(this);
         ImageLoader.init(getApplicationContext());
+
+        Realm.init(this);
+        RealmConfiguration config = new RealmConfiguration.Builder().build();
+        Realm.deleteRealm(config);
+        Realm.setDefaultConfiguration(config);
     }
 
 
