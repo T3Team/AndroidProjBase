@@ -52,7 +52,7 @@ public class NetFragment extends BaseFragment {
         mSentRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                netDemoViewModel.loadData();
+                netDemoViewModel.requestNetDemoData();
             }
         });
 
@@ -83,7 +83,7 @@ public class NetFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         netDemoViewModel = ViewModelProviders.of(this).get(NetDemoViewModel.class);
         gson = new Gson();
-        netDemoViewModel.getObservable()
+        netDemoViewModel.getmNetDemoData()
                 .compose(this.<NetDemoBean>bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<NetDemoBean>() {
@@ -96,21 +96,21 @@ public class NetFragment extends BaseFragment {
                         mNetBackContent.setText(String.format("返回的数据-->%s", json));
                     }
                 });
-//        netDemoViewModel.getLoadState().observe(this, new Observer<LoadState>() {
-//            @Override
-//            public void onChanged(@Nullable LoadState loadState) {
-//                if (loadState == null) {
-//                    return;
-//                }
-//                if (loadState.isLoading()) {
-//                    mSentRequest.setEnabled(false);
-//                    mSentRequest.setText("数据加载中");
-//                } else {
-//                    mSentRequest.setEnabled(true);
-//                    mSentRequest.setText("发送请求");
-//                }
-//            }
-//        });
+        netDemoViewModel.getLoadState().observe(this, new Observer<LoadState>() {
+            @Override
+            public void onChanged(@Nullable LoadState loadState) {
+                if (loadState == null) {
+                    return;
+                }
+                if (loadState.isLoading()) {
+                    mSentRequest.setEnabled(false);
+                    mSentRequest.setText("数据加载中");
+                } else {
+                    mSentRequest.setEnabled(true);
+                    mSentRequest.setText("发送请求");
+                }
+            }
+        });
     }
 
     @Override

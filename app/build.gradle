@@ -1,10 +1,8 @@
 apply plugin: 'com.android.application'
-apply plugin: 'realm-android'
+
 apply plugin: 'kotlin-android'
+
 apply plugin: 'kotlin-android-extensions'
-
-
-
 def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
@@ -81,9 +79,9 @@ android {
         variant.outputs.all { output ->
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                //TODO 这里修改apk文件名
+                //这里修改apk文件名
                 if ('release'.endsWith(variant.buildType.name)) {
-                    outputFileName = "Release_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+                    outputFileName = "Release_v${defaultConfig.versionName}_${releaseTime()}.apk"
                 } else if ('debug'.endsWith(variant.buildType.name)) {
                     outputFileName = "Debug_v${defaultConfig.versionName}_${releaseTime()}.apk"
                 }

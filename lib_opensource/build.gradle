@@ -6,8 +6,12 @@ android {
 
 
     defaultConfig {
-        minSdkVersion parent.ext.minSdkVersion
-        targetSdkVersion parent.ext.targetSdkVersion
+        minSdkVersion 14
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
 
@@ -58,6 +62,4 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
     api 'jp.wasabeef:glide-transformations:3.3.0'
     api 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
-
-    api 'com.github.mrgaogang:luckly_recyclerview:v2.1.1'
 }

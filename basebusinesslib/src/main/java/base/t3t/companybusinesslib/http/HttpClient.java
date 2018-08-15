@@ -22,7 +22,7 @@ public abstract class HttpClient {
     private Retrofit client;
 
     /**
-     * base url 统一以/结尾
+     * base url 建议统一以/结尾
      *
      * @return
      */
@@ -42,9 +42,6 @@ public abstract class HttpClient {
 
     private Retrofit getHttpClient_(final ProgressResponseBody.ProgressListener tempProgressListener) {
         progressListener = tempProgressListener;
-        if (setBaseUrl() == null) {
-            throw new IllegalArgumentException("base url should not be null.");
-        }
         if (client == null) {
             Authenticator mAuthenticator = new Authenticator() {
                 @Override
