@@ -8,11 +8,12 @@ import base.t3t.baseprojlib.base.RecyclerBaseAdapter;
 import t3t.baseproj.R;
 import t3t.baseproj.demo.db.holder.CityBeanHolder;
 import t3t.baseproj.demo.db.model.CityList;
+import t3t.baseproj.demo.db.model.ListBean;
 
 /**
  * Created by dale on 2018/8/14.
  */
-public class CityAdapter extends RecyclerBaseAdapter<CityList.ListBean, RecyclerView.ViewHolder> {
+public class CityAdapter extends RecyclerBaseAdapter<ListBean, RecyclerView.ViewHolder> {
     public CityAdapter(LayoutInflater inflater) {
         super(inflater);
     }
@@ -23,7 +24,7 @@ public class CityAdapter extends RecyclerBaseAdapter<CityList.ListBean, Recycler
     }
 
     @Override
-    protected void onBindViewHolder(RecyclerView.ViewHolder holder, int position, CityList.ListBean listBean) {
+    protected void onBindViewHolder(RecyclerView.ViewHolder holder, int position, ListBean listBean) {
         ((CityBeanHolder) holder).setItem(listBean);
     }
 }

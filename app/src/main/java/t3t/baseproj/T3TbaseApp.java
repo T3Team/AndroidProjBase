@@ -28,6 +28,10 @@ public class T3TbaseApp extends BaseApp {
         RealmConfiguration config = new RealmConfiguration.Builder().build();
         Realm.deleteRealm(config);
         Realm.setDefaultConfiguration(config);
+
+        Realm.setDefaultConfiguration(new RealmConfiguration.Builder().name("androidprojbase.realm")
+                .schemaVersion(1)
+                .build());
     }
 
 
@@ -37,6 +41,7 @@ public class T3TbaseApp extends BaseApp {
         instance = this;
 
     }
+
     public static T3TbaseApp getInstance() {
         return instance;
     }

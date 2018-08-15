@@ -26,7 +26,7 @@ import t3t.baseproj.demo.db.model.CityList;
 import t3t.baseproj.demo.db.viewmodel.DbDemoVM;
 
 @Route(path = AppArouterParams.fragmentRealmDbDemo)
-public class RealDemoFragment extends BaseFragment implements LucklyRecyclerView.OnLoadMoreListener, LucklyRecyclerView.OnRefreshListener, View.OnClickListener {
+public class RealDemoFragment extends BaseFragment implements LucklyRecyclerView.OnLoadMoreListener, LucklyRecyclerView.OnRefreshListener{
     private static final String TAG = RealDemoFragment.class.getSimpleName();
 
     @BindView(R.id.topbar)
@@ -114,7 +114,7 @@ public class RealDemoFragment extends BaseFragment implements LucklyRecyclerView
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        dbDemoVM.freashData();
+        dbDemoVM.loadData();
     }
 
     @Override
@@ -122,23 +122,6 @@ public class RealDemoFragment extends BaseFragment implements LucklyRecyclerView
         return true;
     }
 
-
-    @Override
-    public void onClick(View view) {
-//        switch (view.getId()) {
-//            case R.id.showEmpty:
-//                // dataAdapter.clearAll();
-//                break;
-//            case R.id.showError:
-//                mLRecyclerView.showError(true);
-//                break;
-//            case R.id.group:
-//                // startActivity(new Intent(LoadingActivity.this, GroupActivity.class));
-//                break;
-//
-//        }
-
-    }
 
     @Override
     public void onLoadMore() {
