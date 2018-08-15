@@ -7,6 +7,8 @@ buildscript {
     ext.arouter_register_version = '1.0.2'
     ext.butterknife_compiler_version = '8.4.0'
     ext.lifecycle_version = "1.1.1"
+    ext.realm_version = "5.4.1"
+
     repositories {
         google()
         jcenter()
@@ -15,6 +17,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.alibaba:arouter-register:$arouter_register_version"
+        classpath "io.realm:realm-gradle-plugin:$realm_version"
     }
 }
 
@@ -23,11 +26,12 @@ allprojects {
         jcenter()
         mavenLocal()
         google()
+        maven { url 'https://jitpack.io' }
     }
 
     ext {
         buildToolsVersion = "27.0.3"
-        minSdkVersion = 14
+        minSdkVersion = 19
         targetSdkVersion = 27
         compileSdkVersion = 27
         supportVersion = "27.1.1"
