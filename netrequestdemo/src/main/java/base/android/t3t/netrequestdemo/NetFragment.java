@@ -1,7 +1,8 @@
 package base.android.t3t.netrequestdemo;
 
-import android.arch.lifecycle.Observer;
+import android.Manifest;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.gson.Gson;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,7 +23,6 @@ import base.android.t3t.netrequestdemo.viewmodel.NetDemoViewModel;
 import base.t3t.baseprojlib.utils.DevUtil;
 import base.t3t.companybusinesslib.base.BaseFragment;
 import base.t3t.companybusinesslib.constant.NetDemoArouterParams;
-import base.t3t.companybusinesslib.http.LoadState;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Action;
@@ -34,6 +35,13 @@ public class NetFragment extends BaseFragment {
     private TextView mNetBackContent, mCntTv;
     private QMUITopBar mTopBar;
     private NetDemoViewModel netDemoViewModel;
+    private RxPermissions rxPermissions;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        rxPermissions = new RxPermissions(this);
+    }
 
     @Override
     protected View onCreateView() {
@@ -52,7 +60,16 @@ public class NetFragment extends BaseFragment {
         mSentRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                netDemoViewModel.loadData();
+
+                rxPermissions.request(Manifest.permission.INTERNET).subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean granted) throws Exception {
+                        if(granted){
+                            netDemoViewModel.loadData();
+                        }else{
+                        }
+                    }
+                });
             }
         });
 

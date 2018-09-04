@@ -24,7 +24,9 @@ public class MainActivity extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
             BaseFragment fragment = (NetFragment) ArouterUtils.getInstance().getFragment(NetDemoArouterParams.jumpToNetDemoMainragment).navigation();
-            startFragment(fragment);
+            if (fragment != null) {
+                startFragment(fragment);
+            }
         }
     }
 }

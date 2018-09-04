@@ -2,9 +2,9 @@ package base.t3t.companybusinesslib.base;
 
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 
-import base.t3t.baseprojlib.base.QMUIFragment;
+import base.t3t.baseprojlib.base.LibUIFragment;
 
-public abstract class BaseFragment extends QMUIFragment {
+public abstract class BaseFragment extends LibUIFragment {
 
 
     public BaseFragment() {

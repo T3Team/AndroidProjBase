@@ -21,12 +21,10 @@ import java.util.List;
 import base.t3t.baseprojlib.R;
 
 /**
- * Created by cgspine on 2018/1/7.
+ * version 0.1.4
  * <p>
  * modified from https://github.com/ikew0ng/SwipeBackLayout
  */
-
-
 public class SwipeBackLayout extends QMUIWindowInsetLayout {
     /**
      * Minimum velocity that will be detected as a fling
@@ -129,6 +127,8 @@ public class SwipeBackLayout extends QMUIWindowInsetLayout {
     private int mTrackingEdge;
 
     private Callback mCallback;
+
+    private boolean mPreventSwipeBackWhenDown = false;
 
     public SwipeBackLayout(Context context) {
         this(context, null);
@@ -355,9 +355,18 @@ public class SwipeBackLayout extends QMUIWindowInsetLayout {
         invalidate();
     }
 
+    private boolean preventSwipeBack(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            mPreventSwipeBackWhenDown = !canSwipeBack();
+            return mPreventSwipeBackWhenDown;
+        } else {
+            return !canSwipeBack() || mPreventSwipeBackWhenDown;
+        }
+    }
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        if (!canSwipeBack()) {
+        if (preventSwipeBack(event)) {
             return false;
         }
         try {
@@ -369,7 +378,7 @@ public class SwipeBackLayout extends QMUIWindowInsetLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (!canSwipeBack()) {
+        if (preventSwipeBack(event)) {
             return false;
         }
         mDragHelper.processTouchEvent(event);

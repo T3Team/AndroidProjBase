@@ -19,11 +19,9 @@ public class MainActivity extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
             BaseFragment fragment = (BaseFragment) ArouterUtils.getInstance().getFragment(AppArouterParams.fragmentHome).navigation();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(getContextViewId(), fragment, fragment.getClass().getSimpleName())
-                    .addToBackStack(fragment.getClass().getSimpleName())
-                    .commit();
+            if (fragment != null) {
+                startFragment(fragment);
+            }
         }
     }
 }

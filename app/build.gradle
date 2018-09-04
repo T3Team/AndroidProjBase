@@ -4,10 +4,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 
-
 def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
+
 android {
     compileSdkVersion parent.ext.compileSdkVersion
     buildToolsVersion parent.ext.buildToolsVersion
@@ -102,15 +102,15 @@ android {
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
-    api project(':basebusinesslib')
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api 'com.jakewharton:butterknife:8.4.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':basebusinesslib')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.jakewharton:butterknife:$butterknife_version"
 
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife_compiler_version"
     annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler_version"
 
-    api project(':basebusinesslib')
+    implementation project(':basebusinesslib')
 
-    api project(':netrequestdemo')
+    implementation project(':netrequestdemo')
 }

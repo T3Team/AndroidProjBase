@@ -116,14 +116,8 @@ public class HomeFragment extends BaseFragment {
                 ContextCompat.getDrawable(getContext(), R.mipmap.icon_tabbar_util_selected),
                 "Helper", false
         );
-        QMUITabSegment.Tab lab = new QMUITabSegment.Tab(
-                ContextCompat.getDrawable(getContext(), R.mipmap.icon_tabbar_lab),
-                ContextCompat.getDrawable(getContext(), R.mipmap.icon_tabbar_lab_selected),
-                "Lab", false
-        );
         mTabSegment.addTab(component)
-                .addTab(util)
-                .addTab(lab);
+                .addTab(util);
     }
 
     private void initPagers() {
@@ -150,16 +144,12 @@ public class HomeFragment extends BaseFragment {
         homeUtilController.setHomeControlListener(listener);
         mPages.put(Pager.UTIL, homeUtilController);
 
-        HomeController homeLabController = new HomeLabController(getActivity());
-        homeLabController.setHomeControlListener(listener);
-        mPages.put(Pager.LAB, homeLabController);
-
         mViewPager.setAdapter(mPagerAdapter);
         mTabSegment.setupWithViewPager(mViewPager, false);
     }
 
     enum Pager {
-        COMPONENT, UTIL, LAB;
+        COMPONENT, UTIL;
 
         public static Pager getPagerFromPositon(int position) {
             switch (position) {
@@ -167,8 +157,6 @@ public class HomeFragment extends BaseFragment {
                     return COMPONENT;
                 case 1:
                     return UTIL;
-                case 2:
-                    return LAB;
                 default:
                     return COMPONENT;
             }

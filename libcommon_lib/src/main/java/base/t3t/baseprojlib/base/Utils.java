@@ -15,8 +15,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 /**
- * arch: 0.1.0
- * Created by Chaojun Wang on 6/9/14.
+ * version 0.1.4
  */
 public class Utils {
     private Utils() {
@@ -47,7 +46,7 @@ public class Utils {
      * Convert a translucent themed Activity
      * {@link android.R.attr#windowIsTranslucent} back from opaque to
      * translucent following a call to
-     * {@link #convertActivityFromTranslucent(Activity)} .
+     * {@link #convertActivityFromTranslucent(android.app.Activity)} .
      * <p>
      * Calling this allows the Activity behind this one to be seen again. Once
      * all such Activities have been redrawn
@@ -121,18 +120,18 @@ public class Utils {
         }
     }
 
-    static void findAndModifyOpInBackStackRecord(FragmentManager fragmentManager, int backStackIndex, OpHandler handler){
+    static void findAndModifyOpInBackStackRecord(FragmentManager fragmentManager, int backStackIndex, OpHandler handler) {
         if (fragmentManager == null || handler == null) {
             return;
         }
         int backStackCount = fragmentManager.getBackStackEntryCount();
         if (backStackCount > 0) {
-            if(backStackIndex >= backStackCount || backStackIndex < -backStackCount){
+            if (backStackIndex >= backStackCount || backStackIndex < -backStackCount) {
                 QMUILog.d("findAndModifyOpInBackStackRecord", "backStackIndex error: " +
                         "backStackIndex = " + backStackIndex + " ; backStackCount = " + backStackCount);
                 return;
             }
-            if(backStackIndex < 0){
+            if (backStackIndex < 0) {
                 backStackIndex = backStackCount + backStackIndex;
             }
             try {
@@ -144,7 +143,7 @@ public class Utils {
                 if (opsObj instanceof List<?>) {
                     List<?> ops = (List<?>) opsObj;
                     for (Object op : ops) {
-                        if(handler.handle(op)){
+                        if (handler.handle(op)) {
                             return;
                         }
                     }
@@ -161,3 +160,4 @@ public class Utils {
         boolean handle(Object op);
     }
 }
+
